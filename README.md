@@ -15,6 +15,6 @@ you will be expected to work on a Practice Project depending on your track.
 
 Complete the project using the stated guideline.
 
-  Note: Your project should be submitted by 12th September 2020!
+  Note: Your project should be submitted by 12th September 2020!!!
 
 Should you need any clarification, reach out to your mentors or peers on Slack or do not hesitate to reach out to us at alcwithgoogle@andela.com
