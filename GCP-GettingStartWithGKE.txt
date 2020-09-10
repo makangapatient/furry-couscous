@@ -1,0 +1,78 @@
+Lab : "Google Cloud Fundamentals: Getting Started with GKE"
+Lab objective:
+                - Provision a Kubernetes cluster using Kubernetes Engine.
+                - Deploy and manage Docker containers using kubectl.
+
+Access GCP consol of the project:
+
+1. In GCP console of the project, on the top right toolbar, click the Open Cloud Shell button
+2. click continue and Google cloud shell will provides you with command-line 
+        access to your cloud resources directly from your browser.
+
+3. set the default project to the one in which you want to enable the API:
+
+        gcloud config set project qwiklabs-gcp-00-b6c55a51b38d
+
+
+4. Use the following command to check the API enabled in the project:
+
+        gcloud services list --available
+
+5. In the list displayed, check if Kubernetes Engine API and Container Registry API is activated; 
+        if not please activated using the following command:
+
+        gcloud services enable containerregistry.googleapis.com (Activate Container Registry API)
+        gcloud services enable container.googleapis.com (Activate Kubernetes API)
+
+Start a Kubernetes Engine cluster:
+
+6. Place the zone that Qwiklabs assigned you to into an environment variable called MY_ZONE:
+
+        export MY_ZONE=us-central1-a
+
+7. Start a Kubernetes cluster managed by Kubernetes Engine. 
+            Name the cluster webfrontend and configure it to run 2 nodes:
+            
+            gcloud container clusters create webfrontend --zone $MY_ZONE --num-nodes 2
+
+8. After the cluster is created, check your installed version of Kubernetes using the kubectl version command
+
+            kubectl version
+
+9. View your running nodes in the GCP Console
+
+        gcloud container clusters list --zone $MY_ZONE
+
+Run and deploy a container:
+
+10. launch a single instance of the nginx container
+
+        kubectl create deploy nginx --image=nginx:1.17.10
+
+11. View the pod running the nginx container
+
+        kubectl get pods
+
+12. Expose the nginx container to the Internet
+
+       kubectl expose deployment nginx --port 80 --type LoadBalancer
+
+       Kubernetes created a service and an external load balancer with a public IP address attached to it.
+
+13. View the new service
+
+      kubectl get services
+
+      You can use the displayed external IP address to test and contact the nginx container remotely
+
+14. Scale up the number of pods running on your service
+
+     kubectl scale deployment nginx --replicas 3
+
+15. Confirm that Kubernetes has updated the number of pods
+
+     kubectl get pods
+
+16. Confirm that your external IP address has not changed
+
+     kubectl get services
